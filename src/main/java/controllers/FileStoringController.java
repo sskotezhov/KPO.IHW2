@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@RequestMapping("/api")
 @Tag(name = "File Storage API", description = "API для загрузки и получения файлов")
 public class FileStoringController {
 
@@ -49,7 +50,7 @@ public class FileStoringController {
                         example = """
                         {
                             "fileId": "a1b2c3d4e5",
-                            "analysisUrl": "http://localhost:8080/api/analysis/stats?fileId=a1b2c3d4e5"
+                            "analysisUrl": "http://localhost:8080/api/stats?fileId=a1b2c3d4e5"
                         }
                         """
                     )
@@ -82,7 +83,7 @@ public class FileStoringController {
         try {
             String fileId = fileStoringService.storeFile(file);
             String analysisUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/api/analysis/stats")
+                    .path("/api/stats")
                     .queryParam("fileId", fileId)
                     .toUriString();
 
