@@ -13,7 +13,7 @@ public class FileAnalyzerService {
 	@Autowired
 	private final AnalyseRepository analyseRepository;
 	
-	private final static WebClient webClient = WebClient.create("http://localhost:8081");
+	private final static WebClient webClient = WebClient.create("http://nginx/filestoring/api");
 	
 	public FileAnalyzerService(AnalyseRepository analyseRepository)
 	{

@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/analysis")
+@RequestMapping("/api")
 @Tag(name = "File Analysis API", description = "API для анализа текстовых файлов и генерации облака слов")
 public class AnalyserController {
     
@@ -111,7 +111,8 @@ public class AnalyserController {
     @Operation(summary = "Загрузка изображения облака слов",
               description = "Загрузка изображения по локации")
     public ResponseEntity<Resource> downloadImage(
-        @RequestParam("path") String imagePath) {
+        @RequestParam("path") String imagePath) 
+    	{
         
         Path requestedPath = Paths.get(imagePath).normalize();
         
