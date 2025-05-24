@@ -1,0 +1,57 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - filestoring-service
+      - fileanalyser-service
+
+  filestoring-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: filestoring_db
+    volumes:
+      - filestoring-data:/var/lib/postgresql/data
+
+  filestoring-service:
+    build:
+      context: ./FileStoringService
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://filestoring-db:5432/filestoring_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    volumes:
+      - ./oploads:/uploads
+    ports:
+      - "8081:8081"
+
+  fileanalyser-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fileanalyser_db
+    volumes:
+      - fileanalyser-data:/var/lib/postgresql/data
+
+  fileanalyser-service:
+    build:
+      context: ./FileAnalyserService
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://fileanalyser-db:5432/fileanalyser_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    volumes:
+      - ./cloudword:/cloudword
+    ports:
+      - "8082:8082"
+
+volumes:
+  filestoring-data:
+  fileanalyser-data:
