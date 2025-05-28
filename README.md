@@ -5,6 +5,8 @@
 Проект представляет собой систему для работы с файлами, состоящую из двух микросервисов:
 Для запуска docker compose up -d --build. Тестов нет
 
+**!!!ВАЖНО!!!** В СВАГГЕРЕ НАЛО ВЫБРАТЬ СЕРВЕР filestoring ИЛИ fileanalyser, ИНАЧЕ РАБОТАТЬ НЕ БУДЕТ
+
 1. **File Storing Service** - сервис хранения файлов
    - URL: `http://localhost/filestoring/swagger-ui/index.html`
    - Функционал:
